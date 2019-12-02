@@ -27,10 +27,12 @@ func configInit() {
 
 func runModeStandalone() {
 	scannerChannel := make(chan string)
+	resultChannel := make(chan string)
 
 	go consecmon.EnumRunningContainers(&consecmon.ContainerEngineOpts{
 		ScanAllImages: *scanAllImage}, scannerChannel)
-	consecmon.ScanImage(scannerChannel)
+	go consecmon.ScanImage(scannerChannel, resultChannel)
+	consecmon.ConnectScanResult(resultChannel)
 
 	// Start delivery module and setup queue
 	// Enumerate docker containers
