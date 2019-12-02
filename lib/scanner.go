@@ -4,6 +4,11 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
+type ScannerOpt struct {
+	ScanWithTrivy  bool
+	ScanWithDockle bool
+}
+
 func ScanImage(imageChannel chan string, resultChannel chan string) {
 	for imageID := range imageChannel {
 		log.Info("Scanning image: ", imageID)

@@ -17,8 +17,10 @@ go build
 
 ## Components
 
-| Type          | Description |
-| ------------- | ----------- |
-| Docker Client |             |
-| Scanner       |             |
-| Connector     |             |
+| Type           | Description |
+| -------------- | ----------- |
+| Docker Client  |             |
+| Connector      |             |
+| Scanner        |             |
+| Trivy Scanner  |             |
+| Dockle Scanner |             |
