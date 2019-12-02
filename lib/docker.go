@@ -2,7 +2,6 @@ package lib
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/client"
@@ -13,7 +12,7 @@ type ContainerEngineOpts struct {
 	ScanAllImages bool
 }
 
-func EnumRunningContainers(opts *ContainerEngineOpts) {
+func EnumRunningContainers(opts *ContainerEngineOpts, ch chan string) {
 	log.Info("Enumerating running Docker containers")
 
 	cli, err := client.NewClientWithOpts(client.WithVersion("1.40"))
@@ -28,7 +27,8 @@ func EnumRunningContainers(opts *ContainerEngineOpts) {
 		}
 
 		for _, image := range images {
-			fmt.Printf("%s\n", image.ID)
+			// fmt.Printf("%s\n", image.ID)
+			ch <- image.ID
 		}
 	} else {
 		containers, err := cli.ContainerList(context.Background(), types.ContainerListOptions{})
@@ -37,7 +37,10 @@ func EnumRunningContainers(opts *ContainerEngineOpts) {
 		}
 
 		for _, container := range containers {
-			fmt.Printf("%s %s [%s]\n", container.ID, container.Image, container.ImageID)
+			// fmt.Printf("%s %s [%s]\n", container.ID, container.Image, container.ImageID)
+			ch <- container.ImageID
 		}
 	}
+
+	close(ch)
 }
