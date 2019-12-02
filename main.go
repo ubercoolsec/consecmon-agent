@@ -1,11 +1,16 @@
 package main
 
 import (
+	"flag"
 	"os"
 
 	log "github.com/sirupsen/logrus"
 	consecmon "github.com/ubercoolsec/consecmon-agent/lib"
 )
+
+var scanAllImage = flag.Bool("scan-all-image", false, "Scan all images available locally")
+var apiURL = flag.String("api-url", "", "HTTP connector URL")
+var apiSecret = flag.String("api-secret", "", "API secret to include in Authorization header")
 
 var ProgramName string = "consecmon-agent"
 var ProgramVersion string = "0.0.1"
@@ -17,12 +22,12 @@ func loggerInit() {
 }
 
 func configInit() {
-	consecmon.InitConfig()
+	flag.Parse()
 }
 
 func runModeStandalone() {
 	consecmon.EnumRunningContainers(&consecmon.ContainerEngineOpts{
-		ScanAllImages: true})
+		ScanAllImages: *scanAllImage})
 	consecmon.ScanImage()
 
 	// Start delivery module and setup queue
