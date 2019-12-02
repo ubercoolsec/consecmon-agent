@@ -12,8 +12,8 @@ var scanAllImage = flag.Bool("scan-all-image", false, "Scan all images available
 var apiURL = flag.String("api-url", "", "HTTP connector URL")
 var apiSecret = flag.String("api-secret", "", "API secret to include in Authorization header")
 
-var ProgramName string = "consecmon-agent"
-var ProgramVersion string = "0.0.1"
+const ProgramName string = "consecmon-agent"
+const ProgramVersion string = "0.0.1"
 
 func loggerInit() {
 	log.SetOutput(os.Stdout)
