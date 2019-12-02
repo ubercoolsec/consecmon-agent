@@ -4,6 +4,6 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func RunTrivyCollector() {
+func RunTrivyScanner() {
 	log.Info("Running Trivy collector")
 }
