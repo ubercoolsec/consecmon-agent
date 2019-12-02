@@ -31,7 +31,8 @@ func runModeStandalone() {
 
 	go consecmon.EnumRunningContainers(&consecmon.ContainerEngineOpts{
 		ScanAllImages: *scanAllImage}, scannerChannel)
-	go consecmon.ScanImage(scannerChannel, resultChannel)
+	go consecmon.ScanImage(&consecmon.ScannerOpt{},
+		scannerChannel, resultChannel)
 	consecmon.ConnectScanResult(resultChannel)
 
 	// Start delivery module and setup queue
