@@ -2,6 +2,7 @@ package lib
 
 import (
 	log "github.com/sirupsen/logrus"
+	scanners "github.com/ubercoolsec/consecmon-agent/modules/scanners"
 )
 
 type ScannerOpt struct {
@@ -12,8 +13,9 @@ type ScannerOpt struct {
 func ScanImage(imageChannel chan string, resultChannel chan string) {
 	for imageID := range imageChannel {
 		log.Info("Scanning image: ", imageID)
-		// Exec scan with Trivy and Dockle here
-		resultChannel <- "Dummy Result"
+
+		resultChannel <- scanners.RunTrivyScanner(imageID)
+		resultChannel <- scanners.RunDockleScanner(imageID)
 	}
 
 	close(resultChannel)
