@@ -1,8 +1,16 @@
 package lib
 
 import (
+	"bytes"
+
 	log "github.com/sirupsen/logrus"
 )
+
+type ConnectorParam struct {
+	ScannerName    string
+	ScannerVersion string
+	ScanResult     bytes.Buffer
+}
 
 func ConnectScanResult(resultChan chan string) {
 	for result := range resultChan {
