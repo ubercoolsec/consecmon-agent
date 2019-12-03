@@ -5,8 +5,7 @@
 ### Build
 
 ```
-dep ensure
-go build
+go build 
 ```
 
 ### Run
